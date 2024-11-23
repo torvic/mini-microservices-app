@@ -1,0 +1,12 @@
+.root {
+	max-width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.root__list {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}

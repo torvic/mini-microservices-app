@@ -1,9 +1,14 @@
 import { SyntheticEvent, useState } from 'react';
 import styles from './PostCreate.module.css';
 import axios from 'axios'
+import { Post } from './interfaces';
 
-const PostCreate = () => {
-	const [title, setTitle] = useState<string>();
+interface Props {
+	onSuccess: (post: Post) => void;
+}
+
+const PostCreate = ({ onSuccess }: Props) => {
+	const [title, setTitle] = useState<string>('');
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTitle(e.target.value)
@@ -11,12 +16,15 @@ const PostCreate = () => {
 
 	const handleSubmit = async (e:SyntheticEvent ) => {
 		e.preventDefault();
-
-		await axios.post('http://localhost:4000/posts', {
-			title
-		})
-
-		setTitle('');
+		try {
+			const res = await axios.post('http://localhost:4000/posts', {
+				title
+			})
+			setTitle('');
+			onSuccess(res.data);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
   return (
@@ -24,7 +32,7 @@ const PostCreate = () => {
       <h1>Create Post</h1>
       <div className={styles.root__group}>
         <label htmlFor='title'>Title: </label>
-        <input id='title' type='text' className={styles.root__input} onChange={handleChange} />
+        <input id='title' type='text' className={styles.root__input} onChange={handleChange} value={title} required />
       </div>
       <div className={styles.root__actions}>
         <button type='submit' className={styles.root__button}>

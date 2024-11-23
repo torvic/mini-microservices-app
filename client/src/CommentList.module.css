@@ -1,0 +1,18 @@
+.root {
+	width: 100%;
+}
+
+.root__title {
+	margin: 0;
+	font-size: 16px;
+	margin-bottom: 8px;
+}
+
+.root__list {
+	margin: 0;
+	margin-bottom: 8px;
+}
+
+.root__item {
+	font-size: 12px;
+}
